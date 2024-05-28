@@ -53,7 +53,8 @@ $conn->close();
         </div>
         
         <div class="action-buttons">
-            <a href="editProfileStudent.php"><button>Edit Profile</button></a>
+            <a href="editProfileStudent.php"><button>Edit Profile</button></a><br><br>
+            <a href="user.html"><button>Logout</button></a>
         </div>
     </div>
 </body>

@@ -53,7 +53,8 @@ $conn->close();
             <a href="editProfileManager.php"><button>Edit Profile</button></a>
             <a href="viewStaffManager.php"><button>View Staffs</button>
             <a href="viewStudentsManager.php"><button>View Students in My Dorm</button>
-            <a href="viewAllManager.php"><button>View All Students</button>
+            <a href="viewAllManager.php"><button>View All Students</button><br><br>
+            <a href="user.html"><button>Logout</button></a>
         </div>
     </div>
 </body>

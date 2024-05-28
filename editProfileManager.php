@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
     $duty = $_POST['duty'];
     $dorm_id = $_POST['dorm_id'];
-    $staff_id = $_SESSION['username'];
+    $manager_id = $_SESSION['username'];
 
     $picture = null;
     if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['error'] === UPLOAD_ERR_OK) {
@@ -39,16 +39,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    $stmt = $conn->prepare("UPDATE manager SET name = ?, email = ?, duty = ?, dorm_id = ?, picture = ? WHERE manager_id = ?");
-    $stmt->bind_param("ssssss", $name, $email, $duty, $dorm_id, $picture, $staff_id);
+    if ($picture) {
+        $stmt = $conn->prepare("UPDATE manager SET name = ?, email = ?, duty = ?, dorm_id = ?, picture = ? WHERE manager_id = ?");
+        $stmt->bind_param("ssssss", $name, $email, $duty, $dorm_id, $picture, $manager_id);
+    } else {
+        $stmt = $conn->prepare("UPDATE manager SET name = ?, email = ?, duty = ?, dorm_id = ? WHERE manager_id = ?");
+        $stmt->bind_param("sssss", $name, $email, $duty, $dorm_id, $manager_id);
+    }
+
     if ($stmt->execute()) {
         echo "<script>alert('Profile updated successfully');</script>";
         echo "<script>window.setTimeout(function(){ window.location = 'managerDashboard.php'; }, 0);</script>";
     } else {
         echo "<script>alert('Error updating profile');</script>";
     }
-
-    $stmt->close();
 }
 
 $stmt = $conn->prepare("SELECT * FROM manager WHERE manager_id = ?");
@@ -103,10 +107,11 @@ $conn->close();
             </select>
             <br>
             <label for="profile_picture">Profile Picture (jpg, png):</label>
-            <input type="file" name="profile_picture">
+            <input type="file" name="profile_picture" value="<?php echo $managerData['picture']; ?>">
             <br>
             <button type="submit">Update Profile</button>
         </form>
+        <a href="managerDashboard.php"><button>Cancel</button></a>
     </div>
 </body>
 </html>

@@ -98,6 +98,7 @@ $conn->close();
                 </tr>
             <?php endwhile; ?>
         </table>
+        <br><a href="managerDashboard.php"><button>Back</button></a>
     </div>
 </body>
 </html>

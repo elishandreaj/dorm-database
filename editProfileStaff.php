@@ -39,16 +39,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    $stmt = $conn->prepare("UPDATE staff SET name = ?, email = ?, duty = ?, dorm_id = ?, picture = ? WHERE staff_id = ?");
+    if ($picture) {
+        $stmt = $conn->prepare("UPDATE staff SET name = ?, email = ?, duty = ?, dorm_id = ?, picture = ? WHERE staff_id = ?");
     $stmt->bind_param("ssssss", $name, $email, $duty, $dorm_id, $picture, $staff_id);
+    } else {
+        $stmt = $conn->prepare("UPDATE staff SET name = ?, email = ?, duty = ?, dorm_id = ? WHERE staff_id = ?");
+    $stmt->bind_param("sssss", $name, $email, $duty, $dorm_id, $staff_id);
+    }
+
     if ($stmt->execute()) {
         echo "<script>alert('Profile updated successfully');</script>";
         echo "<script>window.setTimeout(function(){ window.location = 'staffDashboard.php'; }, 0);</script>";
     } else {
         echo "<script>alert('Error updating profile');</script>";
     }
-
-    $stmt->close();
 }
 
 $stmt = $conn->prepare("SELECT * FROM staff WHERE staff_id = ?");
@@ -107,6 +111,7 @@ $conn->close();
             <br>
             <button type="submit">Update Profile</button>
         </form>
+        <a href="staffDashboard.php"><button>Cancel</button></a>
     </div>
 </body>
 </html>
