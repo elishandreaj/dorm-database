@@ -34,8 +34,8 @@ $conn->close();
 <body>
     <div class="container">
         <div class="profile-picture">
-            <?php if (!empty($studentData['picture'])): ?>
-                <img src="<?php echo $studentData['picture']; ?>" alt="Profile Picture" style="width:150px;height:150px;">
+            <?php if (!empty($userData['picture'])): ?>
+                <img src="<?php echo $userData['picture']; ?>" alt="Profile Picture" style="width:150px;height:150px;">
             <?php else: ?>
                 <div style="width:150px;height:150px;background-color:black;"></div>
             <?php endif; ?>

@@ -34,12 +34,12 @@ $conn->close();
 <body>
     <div class="container">
         <div class="profile-picture">
-                <?php if (!empty($staffData['picture'])): ?>
-                    <img src="<?php echo $staffData['picture']; ?>" alt="Profile Picture" style="width:150px;height:150px;">
-                <?php else: ?>
-                    <div style="width:150px;height:150px;background-color:black;"></div>
-                <?php endif; ?>
-            </div>
+            <?php if (!empty($staffData['picture'])): ?>
+                <img src="<?php echo $staffData['picture']; ?>" alt="Profile Picture" style="width:150px;height:150px;">
+            <?php else: ?>
+                <div style="width:150px;height:150px;background-color:black;"></div>
+            <?php endif; ?>
+        </div>
 
         <div class="staff-info">
             <h1>Welcome, <?php echo $staffData['name']; ?></h1>

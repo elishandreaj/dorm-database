@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $room_number = $_POST['room_number'];
     $fees = $_POST['fees'];
     $dorm_id = $_POST['dorm_id'];
-    $staff_id = $_SESSION['username'];
+    $student_id = $_SESSION['username'];
 
     $picture = null;
     if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['error'] === UPLOAD_ERR_OK) {
@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $allowedfileExtensions = array('jpg', 'jpeg', 'png');
         if (in_array($fileExtension, $allowedfileExtensions)) {
-            $dest_path = 'uploads/' . $staff_id . '.' . $fileExtension;
+            $dest_path = 'uploads/' . $student_id . '.' . $fileExtension;
             if(move_uploaded_file($fileTmpPath, $dest_path)) {
                 $picture = $dest_path;
             } else {
@@ -52,7 +52,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $stmt->close();
-    $conn->close();
 }
 
 $stmt = $conn->prepare("SELECT * FROM student WHERE student_id = ?");
