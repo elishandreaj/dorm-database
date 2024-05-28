@@ -8,7 +8,7 @@ if (!isset($_SESSION['username']) || empty($_SESSION['username'])) {
 
 include 'database.php';
 
-$stmt = $conn->prepare("SELECT dorm_id FROM manager WHERE dorm_id = ?");
+$stmt = $conn->prepare("SELECT dorm_id FROM manager WHERE manager_id = ?");
 $stmt->bind_param("s", $_SESSION['username']);
 $stmt->execute();
 $result = $stmt->get_result();

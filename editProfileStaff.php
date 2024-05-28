@@ -49,7 +49,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $stmt->close();
-    $conn->close();
 }
 
 $stmt = $conn->prepare("SELECT * FROM staff WHERE staff_id = ?");

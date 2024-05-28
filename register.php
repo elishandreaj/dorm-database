@@ -1,6 +1,12 @@
 <?php
 include 'database.php';
 
+if (empty($_POST['username']) || empty($_POST['password'])) {
+    echo "<script>alert('Please provide both username and password.');</script>";
+    header("Location: registration.html");
+    exit();
+}
+
 $username = $_POST['username'];
 $name = $_POST['name'];
 $email = $_POST['email'];
@@ -49,11 +55,11 @@ $stmt->bind_param("sssss", $username, $password, $role, $employee_type, $usernam
 
 if ($stmt->execute()) {
     echo "<script>alert('Login details saved successfully.');</script>";
+    echo "<script>window.setTimeout(function(){ window.location = 'user.html'; }, 0);</script>";
 } else {
     echo "Error: " . $stmt->error . "<br>";
 }
 $stmt->close();
 
 $conn->close();
-header("Location: login.php");
 ?>
