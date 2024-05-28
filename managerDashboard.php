@@ -29,6 +29,7 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Dorm Manager Dashboard</title>
 </head>
 <body>
@@ -37,7 +38,7 @@ $conn->close();
                 <?php if (!empty($managerData['picture'])): ?>
                     <img src="<?php echo $managerData['picture']; ?>" alt="Profile Picture" style="width:150px;height:150px;">
                 <?php else: ?>
-                    <div style="width:150px;height:150px;background-color:black;"></div>
+                    <img src="icon.png" alt="Default Profile Picture" style="width:150px;height:150px;">
                 <?php endif; ?>
             </div>
 
@@ -50,9 +51,9 @@ $conn->close();
         </div>
         
         <div class="action-buttons">
-            <a href="editProfileManager.php"><button>Edit Profile</button></a>
-            <a href="viewStaffManager.php"><button>View Staffs</button>
-            <a href="viewStudentsManager.php"><button>View Students in My Dorm</button>
+            <a href="editProfileManager.php"><button>Edit Profile</button></a><br><br>
+            <a href="viewStaffManager.php"><button>View Staffs</button><br><br>
+            <a href="viewStudentsManager.php"><button>View Students in My Dorm</button><br><br>
             <a href="viewAllManager.php"><button>View All Students</button><br><br>
             <a href="user.html"><button>Logout</button></a>
         </div>

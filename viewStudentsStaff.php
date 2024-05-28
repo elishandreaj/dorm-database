@@ -38,6 +38,9 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Students</title>
     <style>
+        body{
+            background-color: #BB7B47;
+        }
         table {
             width: 100%;
             border-collapse: collapse;
@@ -56,6 +59,7 @@ $conn->close();
             width: 100px;
             height: 100px;
         }
+        
     </style>
 </head>
 <body>
@@ -91,13 +95,13 @@ $conn->close();
                     </td>
                     <td>
                         <form action="deleteStudentStaff.php" method="post">
-                            <input type="hidden" name="student_id" value="<?php echo $student['student_id']; ?>">
+                            <input type="hidden" name="student_id" value="<?php echo $student['student_id']; ?>"><br><br>
                             <button type="submit">Delete</button>
                         </form>
                     </td>
                 </tr>
             <?php endwhile; ?>
-        </table>
+        </table><br><br>
         <a href="staffDashboard.php"><button>Back</button></a>
     </div>
 </body>

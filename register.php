@@ -1,4 +1,3 @@
-register.php
 <?php
 include 'database.php';
 
@@ -72,8 +71,8 @@ if ($stmt->execute()) {
  $stmt->close();
  $conn->close();
  header("Location: login.php");
- ?>
 
+if ($stmt->execute()) {
     echo "<script>alert('User registered successfuly.');</script>";
 } else {
     echo "Error: " . $stmt->error . "<br>";

@@ -79,17 +79,6 @@ p {
     color: #000;
 
   }
-  label[for="duty"] {
-    display: block;
-    margin-bottom: 5px;
-    font-size: xx-small;
-    
-}
-
-input[type="checkbox"] {
-    width: auto; 
-    margin-right: 5px; 
-}
 
 
 

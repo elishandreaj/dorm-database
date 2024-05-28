@@ -38,6 +38,9 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Students</title>
     <style>
+        body{
+            background-color: #BB7B47;
+        }
         table {
             width: 100%;
             border-collapse: collapse;
@@ -55,6 +58,7 @@ $conn->close();
         img {
             width: 100px;
             height: 100px;
+            max-width: auto;
         }
     </style>
 </head>
