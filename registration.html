@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="fav.png">
+    <title>Registration Form</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Registration Form</h1>
+        <form action="register.php" method="post">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" maxlength="9" required><br>
+            
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required><br>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required><br>
+            
+            <label for="role">Role:</label>
+            <select id="role" name="role" onchange="showRole()" required>
+                <option value="">Select Role</option>
+                <option value="student">Student</option>
+                <option value="employee">Employee</option>
+            </select>
+            
+            <div id="employee-options" style="display: none;">
+                <label for="employee-type">Employee Type:</label>
+                <select id="employee-type" name="employee_type">
+                    <option value="">Select Employee Type</option>
+                    <option value="staff">Staff</option>
+                    <option value="dorm_manager">Dorm Manager</option>
+                </select>
+                
+                <label for="duty">Duty:</label>
+                <input type="text" id="duty" name="duty"><br>
+            </div>
+            
+            <div id="student-options" style="display: none;">
+                <label for="email">Course:</label>
+                <select name="course" id="course" required>   
+                    <option value="">Select Course</option>
+                    <option value="Accountancy">BS in Accountancy</option>                 
+                    <option value="AppMath">BS in Applied Mathematics</option>
+                    <option value="Bio">BS (Biology)</option>
+                    <option value="Marketing">BS in Business Administration (Marketing)</option>
+                    <option value="Chem">BS in Chemistry</option>
+                    <option value="ChE">BS in Chemical Engineering</option>
+                    <option value="CMS">BA in Communication & Media Studies</option>
+                    <option value="CD">BA (Community Development)</option>
+                    <option value="Komsai">BS in Computer Science</option>
+                    <option value="Econ">BS in Economics</option>
+                    <option value="Fish">BS in Fisheries</option>
+                    <option value="FoodTech">BS in Food Technology</option>
+                    <option value="Hist">BA (History)</option>
+                    <option value="Lit">BA (Literature)</option>
+                    <option value="Management">BS in Management</option>
+                    <option value="Polsay">BA (Political Science)</option>
+                    <option value="Psych">BA (Psychology)</option>
+                    <option value="PH">BS in Public Health</option>
+                    <option value="Socio">BA (Sociology)</option>
+                    <option value="Stats">BS in Statistics</option>
+                  </select><br>
+                
+                  <label for="year_level">Year Level:</label>
+                  <select id="year_level" name="year_level" required>
+                    <option value="">Select Year Level</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="N">N</option>
+                  </select><br>
+                
+                <label for="room_number">Room Number:</label>
+                <input type="number" id="room_number" name="room_number"><br>
+                
+                <label for="fees">Fees:</label>
+                <input type="number" id="fees" name="fees"><br>
+            </div>
+            
+            <label for="dorm">Dorm:</label>
+            <select id="dorm" name="dorm" required>
+                <option value="">Select Dorm</option>
+                <option value="1">Balay Apitong</option>
+                <option value="2">Balay Gumamela</option>
+                <option value="3">Balay Kanlaon</option>
+                <option value="4">Balay Lampirong</option>
+                <option value="5">Balay Madyaas</option>
+                <option value="6">Balay Miagos</option>
+                <option value="7">International Dorm</option>
+            </select>
+            
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" minlength="4" maxlength="4" required><br>
+            
+            <button type="submit">Sign Up</button>
+        </form>
+        <p>Already have an account? <a href="user.html">Log in here</a></p>
+    </div>
+
+    <script>
+        function showRole() {
+            const role = document.getElementById('role').value;
+            if (role === 'employee') {
+                document.getElementById('employee-options').style.display = 'block';
+                document.getElementById('student-options').style.display = 'none';
+            } else if (role === 'student') {
+                document.getElementById('employee-options').style.display = 'none';
+                document.getElementById('student-options').style.display = 'block';
+            } else {
+                document.getElementById('employee-options').style.display = 'none';
+                document.getElementById('student-options').style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

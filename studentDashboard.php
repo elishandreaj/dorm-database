@@ -1,0 +1,59 @@
+<?php
+session_start();
+
+if(!isset($_SESSION['username']) || empty($_SESSION['username'])) {
+    header("Location: login.php");
+    exit();
+}
+
+include 'database.php';
+
+$stmt = $conn->prepare("SELECT student.*, dorm.name as dorm_name FROM student LEFT JOIN dorm ON staff.dorm_id = dorm.dorm_id WHERE dorm_id = ?");
+$stmt->bind_param("s", $_SESSION['username']);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if($result->num_rows === 0) {
+    echo "User not found.";
+    exit();
+}
+
+$userData = $result->fetch_assoc();
+
+$stmt->close();
+$conn->close();
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+</head>
+<body>
+    <div class="container">
+        <div class="user-info">
+            <h1>Welcome, <?php echo $userData['name']; ?></h1>
+            <p>Student ID: <?php echo $userData['student_id']; ?></p>
+            <p>Email: <?php echo $userData['email']; ?></p>
+            <p>Room Number: <?php echo $userData['room_number']; ?></p>
+            <p>Fees: <?php echo $userData['fees']; ?></p>
+            <p>Dorm: <?php echo $staffData['dorm_name']; ?></p>
+        </div>
+        
+        <div class="profile-picture">
+            <?php if (!empty($studentData['picture'])): ?>
+                <img src="<?php echo $studentData['picture']; ?>" alt="Profile Picture" style="width:150px;height:150px;">
+            <?php else: ?>
+                <div style="width:150px;height:150px;background-color:black;"></div>
+            <?php endif; ?>
+        </div>
+        
+        <div class="action-buttons">
+            <a href="editProfileStudent.php"><button>Edit Profile</button></a>
+            <button>Edit Profile</button>
+        </div>
+    </div>
+</body>
+</html>
