@@ -42,16 +42,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    $stmt = $conn->prepare("UPDATE student SET name = ?, email = ?, course = ?, year_level = ?, room_number = ?, fees = ?, dorm_id = ?, picture = ? WHERE student_id = ?");
-    $stmt->bind_param("sssiiisss", $name, $email, $course, $year_level, $room_number, $fees, $dorm_id, $picture, $student_id);
+    if ($picture) {
+        $stmt = $conn->prepare("UPDATE student SET name = ?, email = ?, course = ?, year_level = ?, room_number = ?, fees = ?, dorm_id = ?, picture = ? WHERE student_id = ?");
+        $stmt->bind_param("sssiiisss", $name, $email, $course, $year_level, $room_number, $fees, $dorm_id, $picture, $student_id);
+    } else {
+        $stmt = $conn->prepare("UPDATE student SET name = ?, email = ?, course = ?, year_level = ?, room_number = ?, fees = ?, dorm_id = ? WHERE student_id = ?");
+        $stmt->bind_param("sssiiiss", $name, $email, $course, $year_level, $room_number, $fees, $dorm_id, $student_id);
+    }
+
     if ($stmt->execute()) {
         echo "<script>alert('Profile updated successfully');</script>";
         echo "<script>window.setTimeout(function(){ window.location = 'studentDashboard.php'; }, 0);</script>";
     } else {
         echo "<script>alert('Error updating profile');</script>";
     }
-
-    $stmt->close();
 }
 
 $stmt = $conn->prepare("SELECT * FROM student WHERE student_id = ?");
@@ -119,6 +123,7 @@ $conn->close();
             <br>
             <button type="submit">Update Profile</button>
         </form>
+        <a href="studentDashboard.php"><button>Cancel</button></a>
     </div>
 </body>
 </html>
