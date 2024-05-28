@@ -29,6 +29,7 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Student Dashboard</title>
 </head>
 <body>
@@ -37,7 +38,7 @@ $conn->close();
             <?php if (!empty($userData['picture'])): ?>
                 <img src="<?php echo $userData['picture']; ?>" alt="Profile Picture" style="width:150px;height:150px;">
             <?php else: ?>
-                <div style="width:150px;height:150px;background-color:black;"></div>
+                <img src="icon.png" alt="Default Profile Picture" style="width:150px;height:150px;">
             <?php endif; ?>
         </div>
 
@@ -50,19 +51,6 @@ $conn->close();
             <p>Room Number: <?php echo $userData['room_number']; ?></p>
             <p>Fees: <?php echo $userData['fees']; ?></p>
             <p>Dorm: <?php echo $userData['dorm_name']; ?></p>
-        </div>
-        
-        <div class="profile-picture">
-            <?php if (!empty($studentData['picture'])): ?>
-                <img src="<?php echo $studentData['picture']; ?>" alt="Profile Picture" style="width:150px;height:150px;">
-            <?php else: ?>
-                <div style="width:150px;height:150px;background-color:black;"></div>
-            <?php endif; ?>
-        </div>
-        
-        <div class="action-buttons">
-            <a href="editProfileStudent.php"><button>Edit Profile</button></a>
-
         </div>
         
         <div class="action-buttons">

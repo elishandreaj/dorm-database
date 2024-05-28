@@ -29,15 +29,16 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Staff Dashboard</title>
 </head>
 <body>
     <div class="container">
         <div class="profile-picture">
             <?php if (!empty($staffData['picture'])): ?>
-                <img src="<?php echo $staffData['picture']; ?>" alt="Profile Picture" style="width:150px;height:150px;">
+                <img src="<?php echo $staffData['picture']; ?>" alt="Profile Picture" style="width:150px;height:150px;text-align: center">
             <?php else: ?>
-                <div style="width:150px;height:150px;background-color:black;"></div>
+                <img src="icon.png" alt="Default Profile Picture" style="width:150px;height:150px;">
             <?php endif; ?>
         </div>
 
@@ -50,10 +51,7 @@ $conn->close();
         </div>
         
         <div class="action-buttons">
-            <a href="editProfileStaff.php"><button>Edit Profile</button></a>
-
-            <a href="viewStudentsStaff.php"><button>View Students</button></a>
-            <a href="manageStudentsStaff.php"><button>Manage Students</button></a>
+            <a href="editProfileStaff.php"><button>Edit Profile</button></a><br><br>
 
             <a href="viewStudentsStaff.php"><button>View Students</button></a><br><br>
             <a href="user.html"><button>Logout</button></a>
