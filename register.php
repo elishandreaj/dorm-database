@@ -5,13 +5,17 @@ $username = $_POST['username'] ?? null;
 $name = $_POST['name'] ?? null;
 $email = $_POST['email'] ?? null;
 $role = $_POST['role'] ?? null;
-$employee_type = $_POST['employee_type'] ?? null;
+$password = $_POST['password'] ?? null;
+// $employee_type = $_POST['employee_type'] ?? null;
 $dorm_id = $_POST['dorm'] ?? null;
 
 if (empty($username) || empty($password)) {
     echo "Please provide both username and password.<br>";
     exit();
 }
+
+// Hash the password
+$password_hashed = password_hash($password, PASSWORD_DEFAULT);
 
 if ($role === 'student') {
     $course = $_POST['course'] ?? null;
@@ -49,7 +53,7 @@ if ($stmt->execute()) {
 }
 $stmt->close();
 
-$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+// $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 $stmt = $conn->prepare("INSERT INTO login (username, password, role, employee_type, id) VALUES (?, ?, ?, ?, ?)");
 $stmt->bind_param("sssss", $username, $password, $role, $employee_type, $username);
 
