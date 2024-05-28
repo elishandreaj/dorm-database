@@ -10,6 +10,19 @@ $password = $_POST['password'] ?? null;
 $employee_type = $_POST['employee_type'] ?? null;
 $dorm_id = $_POST['dorm'] ?? null;
 
+if (empty($_POST['username']) || empty($_POST['password'])) {
+    echo "<script>alert('Please provide both username and password.');</script>";
+    header("Location: registration.html");
+    exit();
+}
+
+$username = $_POST['username'];
+$name = $_POST['name'];
+$email = $_POST['email'];
+$role = $_POST['role'];
+$password = password_hash($_POST['password'], PASSWORD_BCRYPT);
+$dorm_id = $_POST['dorm'];
+
 if ($role === 'student') {
     $course = $_POST['course'] ?? null;
     $year_level = $_POST['year_level'] ?? null;
@@ -17,7 +30,7 @@ if ($role === 'student') {
     $fees = $_POST['fees'] ?? null;
 
     if (empty($course) || empty($year_level) || empty($room_number) || empty($fees)) {
-        die('All fields are required for student.');
+        echo "<script>alert('All fields are required for student.');</script>";
     }
     $stmt = $conn->prepare("INSERT INTO student (student_id, name, email, course, year_level, room_number, fees, dorm_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
     $stmt->bind_param("ssssiisi", $username, $name, $email, $course, $year_level, $room_number, $fees, $dorm_id);
@@ -27,7 +40,7 @@ if ($role === 'student') {
     $duty = $_POST['duty'] ?? null;
 
     if (empty($employee_type) || empty($duty)) {
-        die('All fields are required for employee.');
+        echo "<script>alert('All fields are required for employee.');</script>";
     }
 
     if ($employee_type === 'staff') {
@@ -39,7 +52,7 @@ if ($role === 'student') {
     }
 }
 
-if ($stmt->execute()) {
+if ($stmt->execute()) { 
     echo "User registered successfully.<br>";
     // Hash the password
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
@@ -60,3 +73,23 @@ if ($stmt->execute()) {
  $conn->close();
  header("Location: login.php");
  ?>
+
+    echo "<script>alert('User registered successfuly.');</script>";
+} else {
+    echo "Error: " . $stmt->error . "<br>";
+}
+$stmt->close();
+
+$stmt = $conn->prepare("INSERT INTO login (username, password, role, employee_type, id) VALUES (?, ?, ?, ?, ?)");
+$stmt->bind_param("sssss", $username, $password, $role, $employee_type, $username);
+
+if ($stmt->execute()) {
+    echo "<script>alert('Login details saved successfully.');</script>";
+    echo "<script>window.setTimeout(function(){ window.location = 'user.html'; }, 0);</script>";
+} else {
+    echo "Error: " . $stmt->error . "<br>";
+}
+$stmt->close();
+
+$conn->close();
+?>

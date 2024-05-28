@@ -12,30 +12,34 @@
         <h1>Registration Form</h1>
         <form action="register.php" method="post">
             <label for="username">Username:</label>
-            <input type="text" id="username" name="username" maxlength="9" required><br>
+            <input type="text" id="username" name="username" maxlength="9" required autocomplete="off"><br>
             
             <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required><br>
+            <input type="text" id="name" name="name" required autocomplete="off"><br>
 
             <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required><br>
+            <input type="email" id="email" name="email" required autocomplete="off"><br>
             
             <label for="role">Role:</label>
             <select id="role" name="role" onchange="showRole()" required>
-                <option value="">Select Role</option>
+                <option value="" selected>Select Role</option>
                 <option value="student">Student</option>
                 <option value="employee">Employee</option>
             </select><br>
                 
+
+            </select>
+            
+            <!-- Employee-specific fields -->
+
             <div id="employee-options" style="display: none;">
             <label for="employee-type">Employee Type:</label>
                 <select id="employee-type" name="employee_type">
-                    <option value="">Select Employee Type</option>
+                    <option value="" selected>Select Employee Type</option>
                     <option value="staff">Staff</option>
                     <option value="dorm_manager">Dorm Manager</option>
                 </select>
 
-                <label for="duty">Duty:</label>
                 <label for="duty">Duty:</label><br>
                     <input type="checkbox" id="mon-morning" name="duty[]" value="8 AM - 12 PM (MON)">
                     <label for="mon-morning">8 AM - 12 PM (MON)</label><br>
@@ -127,10 +131,13 @@
                 </select>
         </div>
 
+
+                <input type="text" id="duty" name="duty"><br>
+            </div>
             <div id="student-options" style="display: none;">
-                <label for="email">Course:</label>
-                <select name="course" id="course" required>   
-                    <option value="">Select Course</option>
+                <label for="course">Course:</label>
+                <select name="course" id="course" required autocomplete="off">   
+                    <option value="dafault" disabled>Select Course</option>
                     <option value="Accountancy">BS in Accountancy</option>                 
                     <option value="AppMath">BS in Applied Mathematics</option>
                     <option value="Bio">BS (Biology)</option>
@@ -151,17 +158,17 @@
                     <option value="PH">BS in Public Health</option>
                     <option value="Socio">BA (Sociology)</option>
                     <option value="Stats">BS in Statistics</option>
-                  </select><br>
+                </select><br>
                 
-                  <label for="year_level">Year Level:</label>
-                  <select id="year_level" name="year_level" required>
-                    <option value="">Select Year Level</option>
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                      <option value="3">3</option>
-                      <option value="4">4</option>
-                      <option value="N">N</option>
-                  </select><br>
+                <label for="year_level">Year Level:</label>
+                <select id="year_level" name="year_level" required autocomplete="off">
+                    <option value="default" disabled>Select Year Level</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="N">N</option>
+                </select><br>
                 
                 <label for="room_number">Room Number:</label>
                 <input type="number" id="room_number" name="room_number"><br>
@@ -171,7 +178,7 @@
             </div>
             <label for="dorm">Dorm:</label>
             <select id="dorm" name="dorm" required>
-                <option value="">Select Dorm</option>
+                <option value="" selected>Select Dorm</option>
                 <option value="1">Balay Apitong</option>
                 <option value="2">Balay Gumamela</option>
                 <option value="3">Balay Kanlaon</option>

@@ -33,10 +33,20 @@ $conn->close();
 </head>
 <body>
     <div class="container">
+        <div class="profile-picture">
+            <?php if (!empty($userData['picture'])): ?>
+                <img src="<?php echo $userData['picture']; ?>" alt="Profile Picture" style="width:150px;height:150px;">
+            <?php else: ?>
+                <div style="width:150px;height:150px;background-color:black;"></div>
+            <?php endif; ?>
+        </div>
+
         <div class="user-info">
             <h1>Welcome, <?php echo $userData['name']; ?></h1>
             <p>Student ID: <?php echo $userData['student_id']; ?></p>
             <p>Email: <?php echo $userData['email']; ?></p>
+            <p>Course: <?php echo $userData['course']; ?></p>
+            <p>Year Level: <?php echo $userData['year_level']; ?></p>
             <p>Room Number: <?php echo $userData['room_number']; ?></p>
             <p>Fees: <?php echo $userData['fees']; ?></p>
             <p>Dorm: <?php echo $userData['dorm_name']; ?></p>
@@ -52,6 +62,13 @@ $conn->close();
         
         <div class="action-buttons">
             <a href="editProfileStudent.php"><button>Edit Profile</button></a>
+
+        </div>
+        
+        <div class="action-buttons">
+            <a href="editProfileStudent.php"><button>Edit Profile</button></a><br><br>
+            <a href="user.html"><button>Logout</button></a>
+
         </div>
     </div>
 </body>

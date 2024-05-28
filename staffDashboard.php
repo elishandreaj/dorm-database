@@ -34,12 +34,12 @@ $conn->close();
 <body>
     <div class="container">
         <div class="profile-picture">
-                <?php if (!empty($staffData['picture'])): ?>
-                    <img src="<?php echo $staffData['picture']; ?>" alt="Profile Picture" style="width:150px;height:150px;">
-                <?php else: ?>
-                    <div style="width:150px;height:150px;background-color:black;"></div>
-                <?php endif; ?>
-            </div>
+            <?php if (!empty($staffData['picture'])): ?>
+                <img src="<?php echo $staffData['picture']; ?>" alt="Profile Picture" style="width:150px;height:150px;">
+            <?php else: ?>
+                <div style="width:150px;height:150px;background-color:black;"></div>
+            <?php endif; ?>
+        </div>
 
         <div class="staff-info">
             <h1>Welcome, <?php echo $staffData['name']; ?></h1>
@@ -51,8 +51,13 @@ $conn->close();
         
         <div class="action-buttons">
             <a href="editProfileStaff.php"><button>Edit Profile</button></a>
+
             <a href="viewStudentsStaff.php"><button>View Students</button></a>
             <a href="manageStudentsStaff.php"><button>Manage Students</button></a>
+
+            <a href="viewStudentsStaff.php"><button>View Students</button></a><br><br>
+            <a href="user.html"><button>Logout</button></a>
+
         </div>
     </div>
 </body>
