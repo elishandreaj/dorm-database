@@ -25,20 +25,108 @@
                 <option value="">Select Role</option>
                 <option value="student">Student</option>
                 <option value="employee">Employee</option>
-            </select>
-            
+            </select><br>
+                
             <div id="employee-options" style="display: none;">
-                <label for="employee-type">Employee Type:</label>
+            <label for="employee-type">Employee Type:</label>
                 <select id="employee-type" name="employee_type">
                     <option value="">Select Employee Type</option>
                     <option value="staff">Staff</option>
                     <option value="dorm_manager">Dorm Manager</option>
                 </select>
-                
+
                 <label for="duty">Duty:</label>
-                <input type="text" id="duty" name="duty"><br>
-            </div>
-            
+                <label for="duty">Duty:</label><br>
+                    <input type="checkbox" id="mon-morning" name="duty[]" value="8 AM - 12 PM (MON)">
+                    <label for="mon-morning">8 AM - 12 PM (MON)</label><br>
+
+                    <input type="checkbox" id="mon-afternoon" name="duty[]" value="1 PM - 5 PM (MON)">
+                    <label for="mon-afternoon">1 PM - 5 PM (MON)</label><br>
+
+                    <input type="checkbox" id="mon-night" name="duty[]" value="5 PM - 11 PM (MON)">
+                    <label for="mon-night">5 PM - 11 PM (MON)</label><br>
+
+                    <input type="checkbox" id="tue-morning" name="duty[]" value="8 AM - 12 PM (TUE)">
+                    <label for="tue-morning">8 AM - 12 PM (TUE)</label><br>
+
+                    <input type="checkbox" id="tue-afternoon" name="duty[]" value="1 PM - 5 PM (TUE)">
+                    <label for="tue-afternoon">1 PM - 5 PM (TUE)</label><br>
+
+                    <input type="checkbox" id="tue-night" name="duty[]" value="5 PM - 11 PM (TUE)">
+                    <label for="tue-night">5 PM - 11 PM (TUE)</label><br>
+
+                    <input type="checkbox" id="wed-morning" name="duty[]" value="8 AM - 12 PM (WED)">
+                    <label for="wed-morning">8 AM - 12 PM (WED)</label><br>
+
+                    <input type="checkbox" id="wed-afternoon" name="duty[]" value="1 PM - 5 PM (WED)">
+                    <label for="wed-afternoon">1 PM - 5 PM (WED)</label><br>
+
+                    <input type="checkbox" id="wed-night" name="duty[]" value="5 PM - 11 PM (WED)">
+                    <label for="wed-night">5 PM - 11 PM (WED)</label><br>
+
+                    <input type="checkbox" id="thu-morning" name="duty[]" value="8 AM - 12 PM (THU)">
+                    <label for="thu-morning">8 AM - 12 PM (THU)</label><br>
+
+                    <input type="checkbox" id="thu-afternoon" name="duty[]" value="1 PM - 5 PM (THU)">
+                    <label for="thu-afternoon">1 PM - 5 PM (THU)</label><br>
+
+                    <input type="checkbox" id="thu-night" name="duty[]" value="5 PM - 11 PM (THU)">
+                    <label for="thu-night">5 PM - 11 PM (THU)</label><br>
+
+                    <input type="checkbox" id="fri-morning" name="duty[]" value="8 AM - 12 PM (FRI)">
+                    <label for="fri-morning">8 AM - 12 PM (FRI)</label><br>
+
+                    <input type="checkbox" id="fri-afternoon" name="duty[]" value="1 PM - 5 PM (FRI)">
+                    <label for="fri-afternoon">1 PM - 5 PM (FRI)</label><br>
+
+                    <input type="checkbox" id="fri-night" name="duty[]" value="5 PM - 11 PM (FRI)">
+                    <label for="fri-night">5 PM - 11 PM (FRI)</label><br>
+
+                    <input type="checkbox" id="sat-morning" name="duty[]" value="8 AM - 12 PM (SAT)">
+                    <label for="sat-morning">8 AM - 12 PM (SAT)</label><br>
+
+                    <input type="checkbox" id="sat-afternoon" name="duty[]" value="1 PM - 5 PM (SAT)">
+                    <label for="sat-afternoon">1 PM - 5 PM (SAT)</label><br>
+
+                    <input type="checkbox" id="sat-night" name="duty[]" value="5 PM - 11 PM (SAT)">
+                    <label for="sat-night">5 PM - 11 PM (SAT)</label><br>
+
+
+                    <input type="checkbox" id="sun-morning" name="duty[]" value="8 AM - 12 PM (SUN)">
+                    <label for="sun-morning">8 AM - 12 PM (SUN)</label><br>
+
+                    <input type="checkbox" id="sun-afternoon" name="duty[]" value="1 PM - 5 PM (SUN)">
+                    <label for="sun-afternoon">1 PM - 5 PM (SUN)</label><br>
+
+                    <input type="checkbox" id="sun-night" name="duty[]" value="5 PM - 11 PM (SUN)">
+                    <label for="sun-night">5 PM - 11 PM (SUN)</label><br>
+
+
+                    <!-- <option value="">Select Duty Timing</option>
+                    <option value="1">8 AM - 12 PM (MON)</option>
+                    <option value="2">1 PM - 5 PM (MON)</option>
+                    <option value="3">5 PM - 11 PM (MON)</option>
+                    <option value="4">8 AM - 12 PM (TUE)</option>
+                    <option value="5">1 PM - 5 PM (TUE)</option>
+                    <option value="6">5 PM - 11 PM (TUE)</option>
+                    <option value="7">8 AM - 12 PM (WED)</option>
+                    <option value="8">1 PM - 5 PM (WED)</option>
+                    <option value="9">5 PM - 11 PM (WED)</option>
+                    <option value="10">8 AM - 12 PM (THU)</option>
+                    <option value="11">1 PM - 5 PM (THU)</option>
+                    <option value="12">5 PM - 11 PM (THU)</option>
+                    <option value="13">8 AM - 12 PM (FRI)</option>
+                    <option value="14">1 PM - 5 PM (FRI)</option>
+                    <option value="15">5 PM - 11 PM (FRI)</option>
+                    <option value="16">8 AM - 12 PM (SAT)</option>
+                    <option value="17">1 PM - 5 PM (SAT)</option>
+                    <option value="18">5 PM - 11 PM (SAT)</option>
+                    <option value="19">8 AM - 12 PM (SUN)</option>
+                    <option value="20">1 PM - 5 PM (SUN)</option>
+                    <option value="21">5 PM - 11 PM (SUN)</option> -->
+                </select>
+        </div>
+
             <div id="student-options" style="display: none;">
                 <label for="email">Course:</label>
                 <select name="course" id="course" required>   
@@ -81,7 +169,6 @@
                 <label for="fees">Fees:</label>
                 <input type="number" id="fees" name="fees"><br>
             </div>
-            
             <label for="dorm">Dorm:</label>
             <select id="dorm" name="dorm" required>
                 <option value="">Select Dorm</option>
@@ -92,7 +179,7 @@
                 <option value="5">Balay Madyaas</option>
                 <option value="6">Balay Miagos</option>
                 <option value="7">International Dorm</option>
-            </select>
+            </select><br>
             
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" minlength="4" maxlength="4" required><br>

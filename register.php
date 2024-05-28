@@ -1,3 +1,4 @@
+register.php
 <?php
 include 'database.php';
 
@@ -6,16 +7,8 @@ $name = $_POST['name'] ?? null;
 $email = $_POST['email'] ?? null;
 $role = $_POST['role'] ?? null;
 $password = $_POST['password'] ?? null;
-// $employee_type = $_POST['employee_type'] ?? null;
+$employee_type = $_POST['employee_type'] ?? null;
 $dorm_id = $_POST['dorm'] ?? null;
-
-if (empty($username) || empty($password)) {
-    echo "Please provide both username and password.<br>";
-    exit();
-}
-
-// Hash the password
-$password_hashed = password_hash($password, PASSWORD_DEFAULT);
 
 if ($role === 'student') {
     $course = $_POST['course'] ?? null;
@@ -26,9 +19,9 @@ if ($role === 'student') {
     if (empty($course) || empty($year_level) || empty($room_number) || empty($fees)) {
         die('All fields are required for student.');
     }
-
     $stmt = $conn->prepare("INSERT INTO student (student_id, name, email, course, year_level, room_number, fees, dorm_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
     $stmt->bind_param("ssssiisi", $username, $name, $email, $course, $year_level, $room_number, $fees, $dorm_id);
+    
 } else if ($role === 'employee') {
     $employee_type = $_POST['employee_type'] ?? null;
     $duty = $_POST['duty'] ?? null;
@@ -48,22 +41,22 @@ if ($role === 'student') {
 
 if ($stmt->execute()) {
     echo "User registered successfully.<br>";
-} else {
-    echo "Error: " . $stmt->error . "<br>";
-}
-$stmt->close();
+    // Hash the password
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
-// $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-$stmt = $conn->prepare("INSERT INTO login (username, password, role, employee_type, id) VALUES (?, ?, ?, ?, ?)");
-$stmt->bind_param("sssss", $username, $password, $role, $employee_type, $username);
-
-if ($stmt->execute()) {
-    echo "Login details saved successfully.<br>";
-} else {
-    echo "Error: " . $stmt->error . "<br>";
-}
-$stmt->close();
-
-$conn->close();
-header("Location: login.php");
-?>
+     $stmt = $conn->prepare("INSERT INTO login (username, password, role, employee_type, id) VALUES (?, ?, ?, ?, ?)");
+     $stmt->bind_param("sssss", $username, $password, $role, $employee_type, $username);
+ 
+     if ($stmt->execute()) {
+         echo "Login details saved successfully.<br>";
+     } else {
+         echo "Error: " . $stmt->error . "<br>";
+     }
+ } else {
+     echo "Error: " . $stmt->error . "<br>";
+ }
+ 
+ $stmt->close();
+ $conn->close();
+ header("Location: login.php");
+ ?>

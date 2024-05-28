@@ -51,8 +51,8 @@ $conn->close();
         
         <div class="action-buttons">
             <a href="editProfileStaff.php"><button>Edit Profile</button></a>
-            <a href="viewStudentsStaff.php"><button>View Students</button>
-            <a href="manageStudentsStaff.php"><button>Manage Students</button>
+            <a href="viewStudentsStaff.php"><button>View Students</button></a>
+            <a href="manageStudentsStaff.php"><button>Manage Students</button></a>
         </div>
     </div>
 </body>

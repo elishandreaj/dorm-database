@@ -8,7 +8,7 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])) {
 
 include 'database.php';
 
-$stmt = $conn->prepare("SELECT student.*, dorm.name as dorm_name FROM student LEFT JOIN dorm ON staff.dorm_id = dorm.dorm_id WHERE dorm_id = ?");
+$stmt = $conn->prepare("SELECT student.*, dorm.name as dorm_name FROM student LEFT JOIN dorm ON student.dorm_id = dorm.dorm_id WHERE student_id = ?");
 $stmt->bind_param("s", $_SESSION['username']);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -39,7 +39,7 @@ $conn->close();
             <p>Email: <?php echo $userData['email']; ?></p>
             <p>Room Number: <?php echo $userData['room_number']; ?></p>
             <p>Fees: <?php echo $userData['fees']; ?></p>
-            <p>Dorm: <?php echo $staffData['dorm_name']; ?></p>
+            <p>Dorm: <?php echo $userData['dorm_name']; ?></p>
         </div>
         
         <div class="profile-picture">
@@ -52,7 +52,6 @@ $conn->close();
         
         <div class="action-buttons">
             <a href="editProfileStudent.php"><button>Edit Profile</button></a>
-            <button>Edit Profile</button>
         </div>
     </div>
 </body>
