@@ -8,7 +8,7 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])) {
 
 include 'database.php';
 
-$stmt = $conn->prepare("SELECT student.*, dorm.name as dorm_name FROM student LEFT JOIN dorm ON staff.dorm_id = dorm.dorm_id WHERE dorm_id = ?");
+$stmt = $conn->prepare("SELECT student.*, dorm.name as dorm_name FROM student LEFT JOIN dorm ON student.dorm_id = dorm.dorm_id WHERE student_id = ?");
 $stmt->bind_param("s", $_SESSION['username']);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -33,15 +33,6 @@ $conn->close();
 </head>
 <body>
     <div class="container">
-        <div class="user-info">
-            <h1>Welcome, <?php echo $userData['name']; ?></h1>
-            <p>Student ID: <?php echo $userData['student_id']; ?></p>
-            <p>Email: <?php echo $userData['email']; ?></p>
-            <p>Room Number: <?php echo $userData['room_number']; ?></p>
-            <p>Fees: <?php echo $userData['fees']; ?></p>
-            <p>Dorm: <?php echo $staffData['dorm_name']; ?></p>
-        </div>
-        
         <div class="profile-picture">
             <?php if (!empty($studentData['picture'])): ?>
                 <img src="<?php echo $studentData['picture']; ?>" alt="Profile Picture" style="width:150px;height:150px;">
@@ -49,10 +40,20 @@ $conn->close();
                 <div style="width:150px;height:150px;background-color:black;"></div>
             <?php endif; ?>
         </div>
+
+        <div class="user-info">
+            <h1>Welcome, <?php echo $userData['name']; ?></h1>
+            <p>Student ID: <?php echo $userData['student_id']; ?></p>
+            <p>Email: <?php echo $userData['email']; ?></p>
+            <p>Course: <?php echo $userData['course']; ?></p>
+            <p>Year Level: <?php echo $userData['year_level']; ?></p>
+            <p>Room Number: <?php echo $userData['room_number']; ?></p>
+            <p>Fees: <?php echo $userData['fees']; ?></p>
+            <p>Dorm: <?php echo $userData['dorm_name']; ?></p>
+        </div>
         
         <div class="action-buttons">
             <a href="editProfileStudent.php"><button>Edit Profile</button></a>
-            <button>Edit Profile</button>
         </div>
     </div>
 </body>

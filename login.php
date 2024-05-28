@@ -25,7 +25,6 @@ if(isset($_POST['username'], $_POST['password'])) {
                 header("Location: studentDashboard.php");
                 exit();
             } else if ($role === 'employee') {
-                echo "Employee Type is empty. Username: $username";
                 if ($employee_type === 'staff') {
                     header("Location: staffDashboard.php");
                     exit();

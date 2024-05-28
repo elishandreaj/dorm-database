@@ -65,31 +65,8 @@ $tables = [
         username VARCHAR(40) PRIMARY KEY,
         password VARCHAR(60) NOT NULL,
         role VARCHAR(20) NOT NULL,
-        employee_type VARCHAR (20) NOT NULL,
+        employee_type VARCHAR (20),
         id VARCHAR(40) NOT NULL
-    )",
-    "CREATE TABLE IF NOT EXISTS student_edits (
-        edit_id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-        student_id INT(9) UNSIGNED,
-        name VARCHAR(100),
-        email VARCHAR(100),
-        course VARCHAR(40),
-        year_level INT(1),
-        room_number INT(2) UNSIGNED,
-        fees INT(3) UNSIGNED,
-        picture VARCHAR(60),
-        approved BOOLEAN DEFAULT FALSE,
-        FOREIGN KEY (student_id) REFERENCES student(student_id)
-    )",
-    "CREATE TABLE IF NOT EXISTS staff_edits (
-        edit_id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-        staff_id INT(9) UNSIGNED,
-        name VARCHAR(100),
-        email VARCHAR(100),
-        duty VARCHAR(40),
-        picture VARCHAR(60),
-        approved BOOLEAN DEFAULT FALSE,
-        FOREIGN KEY (staff_id) REFERENCES staff(staff_id)
     )"
 ];
 

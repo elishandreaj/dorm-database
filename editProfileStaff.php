@@ -43,6 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bind_param("ssssss", $name, $email, $duty, $dorm_id, $picture, $staff_id);
     if ($stmt->execute()) {
         echo "<script>alert('Profile updated successfully');</script>";
+        echo "<script>window.setTimeout(function(){ window.location = 'staffDashboard.php'; }, 0);</script>";
     } else {
         echo "<script>alert('Error updating profile');</script>";
     }
