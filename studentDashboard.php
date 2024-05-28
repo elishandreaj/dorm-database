@@ -52,9 +52,23 @@ $conn->close();
             <p>Dorm: <?php echo $userData['dorm_name']; ?></p>
         </div>
         
+        <div class="profile-picture">
+            <?php if (!empty($studentData['picture'])): ?>
+                <img src="<?php echo $studentData['picture']; ?>" alt="Profile Picture" style="width:150px;height:150px;">
+            <?php else: ?>
+                <div style="width:150px;height:150px;background-color:black;"></div>
+            <?php endif; ?>
+        </div>
+        
+        <div class="action-buttons">
+            <a href="editProfileStudent.php"><button>Edit Profile</button></a>
+
+        </div>
+        
         <div class="action-buttons">
             <a href="editProfileStudent.php"><button>Edit Profile</button></a><br><br>
             <a href="user.html"><button>Logout</button></a>
+
         </div>
     </div>
 </body>
