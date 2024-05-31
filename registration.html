@@ -19,7 +19,7 @@
 
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required autocomplete="off"><br>
-            
+
             <label for="role">Role:</label>
             <select id="role" name="role" onchange="showRole()" required>
                 <option value="" selected>Select Role</option>
@@ -27,7 +27,6 @@
                 <option value="employee">Employee</option>
             </select>
             
-            <!-- Employee-specific fields -->
             <div id="employee-options" style="display: none;">
                 <label for="employee-type">Employee Type:</label>
                 <select id="employee-type" name="employee_type">
@@ -37,10 +36,34 @@
                 </select>
                 
                 <label for="duty">Duty:</label>
-                <input type="text" id="duty" name="duty"><br>
+                <div class="dropdown-checklist">
+                    <button type="button" onclick="toggleChecklist()">Select Duties</button>
+                    <div class="dropdown-checklist-content" id="duty-checklist">
+                        <label><input type="checkbox" name="duty[]" value="Monday 1st Shift">Monday 1st Shift</label>
+                        <label><input type="checkbox" name="duty[]" value="Monday 2nd Shift">Monday 2nd Shift</label>
+                        <label><input type="checkbox" name="duty[]" value="Monday 3rd Shift">Monday 3rd Shift</label>
+                        <label><input type="checkbox" name="duty[]" value="Tuesday 1st Shift">Tuesday 1st Shift</label>
+                        <label><input type="checkbox" name="duty[]" value="Tuesday 2nd Shift">Tuesday 2nd Shift</label>
+                        <label><input type="checkbox" name="duty[]" value="Tuesday 3rd Shift">Tuesday 3rd Shift</label>
+                        <label><input type="checkbox" name="duty[]" value="Wednesday 1st Shift">Wednesday 1st Shift</label>
+                        <label><input type="checkbox" name="duty[]" value="Wednesday 2nd Shift">Wednesday 2nd Shift</label>
+                        <label><input type="checkbox" name="duty[]" value="Wednesday 3rd Shift">Wednesday 3rd Shift</label>
+                        <label><input type="checkbox" name="duty[]" value="Thursday 1st Shift">Thursday 1st Shift</label>
+                        <label><input type="checkbox" name="duty[]" value="Thursday 2nd Shift">Thursday 2nd Shift</label>
+                        <label><input type="checkbox" name="duty[]" value="Thursday 3rd Shift">Thursday 3rd Shift</label>
+                        <label><input type="checkbox" name="duty[]" value="Friday 1st Shift">Friday 1st Shift</label>
+                        <label><input type="checkbox" name="duty[]" value="Friday 2nd Shift">Friday 2nd Shift</label>
+                        <label><input type="checkbox" name="duty[]" value="Friday 3rd Shift">Friday 3rd Shift</label>
+                        <label><input type="checkbox" name="duty[]" value="Saturday 1st Shift">Saturday 1st Shift</label>
+                        <label><input type="checkbox" name="duty[]" value="Saturday 2nd Shift">Saturday 2nd Shift</label>
+                        <label><input type="checkbox" name="duty[]" value="Saturday 3rd Shift">Saturday 3rd Shift</label>
+                        <label><input type="checkbox" name="duty[]" value="Sunday 1st Shift">Sunday 1st Shift</label>
+                        <label><input type="checkbox" name="duty[]" value="Sunday 2nd Shift">Sunday 2nd Shift</label>
+                        <label><input type="checkbox" name="duty[]" value="Sunday 3rd Shift">Sunday 3rd Shift</label>
+                    </div>
+                </div>
             </div>
             
-            <!-- Student-specific fields -->
             <div id="student-options" style="display: none;">
                 <label for="course">Course:</label>
                 <select name="course" id="course" required autocomplete="off">   
@@ -116,6 +139,23 @@
             } else {
                 document.getElementById('employee-options').style.display = 'none';
                 document.getElementById('student-options').style.display = 'none';
+            }
+        }
+
+        function toggleChecklist() {
+            const checklist = document.getElementById('duty-checklist');
+            checklist.style.display = checklist.style.display === 'block' ? 'none' : 'block';
+        }
+
+        window.onclick = function(event) {
+            if (!event.target.matches('.dropdown-checklist button')) {
+                const checklists = document.getElementsByClassName('dropdown-checklist-content');
+                for (let i = 0; i < checklists.length; i++) {
+                    const openChecklist = checklists[i];
+                    if (openChecklist.style.display === 'block') {
+                        openChecklist.style.display = 'none';
+                    }
+                }
             }
         }
     </script>

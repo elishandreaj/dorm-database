@@ -23,8 +23,24 @@ $dorm_id = $managerData['dorm_id'];
 
 $stmt->close();
 
-$stmt = $conn->prepare("SELECT * FROM student WHERE dorm_id = ?");
-$stmt->bind_param("i", $dorm_id);
+$searchQuery = "";
+if (isset($_GET['search']) && !empty($_GET['search'])) {
+    $search = $_GET['search'];
+    $searchQuery = $search;
+
+    if (is_numeric($search)) {
+        $stmt = $conn->prepare("SELECT * FROM student WHERE dorm_id = ? AND (student_id = ? OR room_number = ? OR year_level = ?)");
+        $stmt->bind_param("iiss", $dorm_id, $search, $search, $search);
+    } else {
+        $searchLike = "%" . $search . "%"; 
+        $stmt = $conn->prepare("SELECT * FROM student WHERE dorm_id = ? AND (name LIKE ? OR course LIKE ?)");
+        $stmt->bind_param("iss", $dorm_id, $searchLike, $searchLike);
+    }
+} else {
+    $stmt = $conn->prepare("SELECT * FROM student WHERE dorm_id = ?");
+    $stmt->bind_param("i", $dorm_id);
+}
+
 $stmt->execute();
 $students = $stmt->get_result();
 $stmt->close();
@@ -38,6 +54,9 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Students</title>
     <style>
+        body{
+            background-color: #BB7B47;
+        }
         table {
             width: 100%;
             border-collapse: collapse;
@@ -55,12 +74,19 @@ $conn->close();
         img {
             width: 100px;
             height: 100px;
+            max-width: auto;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Students in Your Dorm</h1>
+        <h1 align="center">Students in Your Dorm</h1>
+
+        <form method="get" align="center">
+            <input type="text" name="search" placeholder="Search..." value="<?php echo htmlspecialchars($searchQuery); ?>">
+            <button type="submit">Search</button><br><br>
+        </form>
+
         <table>
             <tr>
                 <th>Student ID</th>

@@ -79,6 +79,7 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Edit Profile</title>
 </head>
 <body>
@@ -111,7 +112,7 @@ $conn->close();
             <br>
             <button type="submit">Update Profile</button>
         </form>
-        <a href="managerDashboard.php"><button>Cancel</button></a>
+        <br><a href="managerDashboard.php"><button>Cancel</button></a>
     </div>
 </body>
 </html>

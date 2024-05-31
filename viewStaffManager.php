@@ -23,8 +23,24 @@ $dorm_id = $managerData['dorm_id'];
 
 $stmt->close();
 
-$stmt = $conn->prepare("SELECT * FROM staff WHERE dorm_id = ?");
-$stmt->bind_param("i", $dorm_id);
+$searchQuery = "";
+if (isset($_GET['search']) && !empty($_GET['search'])) {
+    $search = "%{$_GET['search']}%";
+    $searchQuery = $_GET['search'];
+
+    if (is_numeric($search)) {
+        $stmt = $conn->prepare("SELECT * FROM staff WHERE dorm_id = ? AND (staff_id = ?)");
+        $stmt->bind_param("ii", $dorm_id, $search);
+    } else {
+        $searchLike = "%" . $search . "%"; 
+        $stmt = $conn->prepare("SELECT * FROM staff WHERE dorm_id = ? AND (name LIKE ? OR email LIKE ? OR duty LIKE ?)");
+        $stmt->bind_param("isss", $dorm_id, $searchLike, $searchLike, $searchLike);
+    }
+} else {
+    $stmt = $conn->prepare("SELECT * FROM staff WHERE dorm_id = ?");
+    $stmt->bind_param("i", $dorm_id);
+}
+
 $stmt->execute();
 $staffs = $stmt->get_result();
 $stmt->close();
@@ -38,6 +54,9 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Students</title>
     <style>
+        body{
+            background-color: #BB7B47;
+        }
         table {
             width: 100%;
             border-collapse: collapse;
@@ -60,7 +79,13 @@ $conn->close();
 </head>
 <body>
     <div class="container">
-        <h1>Staffs in Your Dorm</h1>
+        <h1 align="center">Staffs in Your Dorm</h1>
+
+        <form method="get" align="center">
+            <input type="text" name="search" placeholder="Search..." value="<?php echo htmlspecialchars($searchQuery); ?>">
+            <button type="submit">Search</button>
+        </form>
+
         <table>
             <tr>
                 <th>Staff ID</th>
@@ -70,27 +95,33 @@ $conn->close();
                 <th>Picture</th>
                 <th>Action</th>
             </tr>
-            <?php while ($staff = $staffs->fetch_assoc()): ?>
+            <?php if ($staffs->num_rows > 0): ?>
+                <?php while ($staff = $staffs->fetch_assoc()): ?>
+                    <tr>
+                        <td><?php echo htmlspecialchars($staff['staff_id']); ?></td>
+                        <td><?php echo htmlspecialchars($staff['name']); ?></td>
+                        <td><?php echo htmlspecialchars($staff['email']); ?></td>
+                        <td><?php echo htmlspecialchars($staff['duty']); ?></td>
+                        <td>
+                            <?php if (!empty($staff['picture'])): ?>
+                                <img src="<?php echo htmlspecialchars($staff['picture']); ?>" alt="Staff Picture">
+                            <?php else: ?>
+                                <div style="width:100px;height:100px;background-color:grey;"></div>
+                            <?php endif; ?>
+                        </td>
+                        <td>
+                            <form action="deleteStaffManager.php" method="post">
+                                <input type="hidden" name="staff_id" value="<?php echo htmlspecialchars($staff['staff_id']); ?>">
+                                <button type="submit">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                <?php endwhile; ?>
+            <?php else: ?>
                 <tr>
-                    <td><?php echo $staff['staff_id']; ?></td>
-                    <td><?php echo $staff['name']; ?></td>
-                    <td><?php echo $staff['email']; ?></td>
-                    <td><?php echo $staff['duty']; ?></td>
-                    <td>
-                        <?php if (!empty($student['picture'])): ?>
-                            <img src="<?php echo $student['picture']; ?>" alt="Student Picture">
-                        <?php else: ?>
-                            <div style="width:100px;height:100px;background-color:grey;"></div>
-                        <?php endif; ?>
-                    </td>
-                    <td>
-                        <form action="deleteStaffManager.php" method="post">
-                            <input type="hidden" name="student_id" value="<?php echo $staff['staff_id']; ?>">
-                            <button type="submit">Delete</button>
-                        </form>
-                    </td>
+                    <td colspan="6">No staff found</td>
                 </tr>
-            <?php endwhile; ?>
+            <?php endif; ?>
         </table>
         <br><a href="managerDashboard.php"><button>Back</button></a>
     </div>

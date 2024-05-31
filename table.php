@@ -25,15 +25,6 @@ $tables = [
         picture VARCHAR(60) NOT NULL,
         FOREIGN KEY (dorm_id) REFERENCES dorm(dorm_id)
     )",
-    "CREATE TABLE IF NOT EXISTS employeesInDorms (
-        dorm_id INT(1) UNSIGNED,
-        manager_id INT(9) UNSIGNED,
-        staff_id INT(9) UNSIGNED,
-        PRIMARY KEY (dorm_id, manager_id, staff_id),
-        FOREIGN KEY (dorm_id) REFERENCES dorm(dorm_id),
-        FOREIGN KEY (manager_id) REFERENCES manager(manager_id),
-        FOREIGN KEY (staff_id) REFERENCES staff(staff_id)
-    )",
     "CREATE TABLE IF NOT EXISTS student (
         student_id INT(9) UNSIGNED PRIMARY KEY,
         name VARCHAR(100) NOT NULL,
@@ -46,20 +37,6 @@ $tables = [
         picture VARCHAR(60) NOT NULL,
         FOREIGN KEY (dorm_id) REFERENCES dorm(dorm_id),
         INDEX room_number_index (room_number)
-    )",
-    "CREATE TABLE IF NOT EXISTS roomOfStudent (
-        room_number INT(2) UNSIGNED,
-        student_id INT(9) UNSIGNED,
-        PRIMARY KEY (room_number, student_id),
-        FOREIGN KEY (room_number) REFERENCES student(room_number),
-        FOREIGN KEY (student_id) REFERENCES student(student_id)
-    )",
-    "CREATE TABLE IF NOT EXISTS roomsInDorms (
-        room_number INT(2) UNSIGNED,
-        dorm_id INT(1) UNSIGNED,
-        PRIMARY KEY (room_number, dorm_id),
-        FOREIGN KEY (room_number) REFERENCES roomOfStudent(room_number),
-        FOREIGN KEY (dorm_id) REFERENCES dorm(dorm_id)
     )",
     "CREATE TABLE IF NOT EXISTS login (
         username VARCHAR(40) PRIMARY KEY,
