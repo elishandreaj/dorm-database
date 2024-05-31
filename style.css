@@ -89,6 +89,44 @@ p {
     align-items: center;
     padding: 8px 16px;
     cursor: pointer;
+    overflow: auto;
+  }
+  
+.password-toggle-icon i {
+    font-size: 18px;
+    line-height: 1;
+    color: #333;
+    transition: color 0.3s ease-in-out;
+    margin-bottom: 20px;
+  }
+  
+.password-toggle-icon i:hover {
+    color: #000;
+  }
+
+.profile-picture{
+    margin: auto;
+    width: 50%;
+}
+
+.user-info{
+    margin-bottom: 10%;
+}
+
+.user-info h1{
+    text-align: center;
+}
+
+.user-info p{
+    text-align: justify;
+    margin: auto;
+    width: 70%;
+    line-height: 30px;
+}
+
+.container{
+    box-shadow: 15px 15px 15px rgba(0, 0, 0, 0.74);
+    margin-bottom: 5%;
 }
 .dropdown-checklist-content label:hover {
     background-color: #f1f1f1;

@@ -57,6 +57,14 @@ foreach ($tables as $sql) {
 }
 
 $dorms = [
+    ['dorm_id' => 1, 'name' => 'Balay Apitong', 'email' => 'apitong@dorm.com'],
+    ['dorm_id' => 2, 'name' => 'Balay Gumamela', 'email' => 'gumamela@dorm.com'],
+    ['dorm_id' => 3, 'name' => 'Balay Kanlaon', 'email' => 'kanlaon@dorm.com'],
+    ['dorm_id' => 4, 'name' => 'Balay Lampirong', 'email' => 'lampirong@dorm.com'],
+    ['dorm_id' => 5, 'name' => 'Balay Madyaas', 'email' => 'madyaas@dorm.com'],
+    ['dorm_id' => 6, 'name' => 'Balay Miagos', 'email' => 'miagos@dorm.com'],
+    ['dorm_id' => 7, 'name' => 'International Dorm', 'email' => 'international@dorm.com']
+];
     ['dorm_id' => 1, 'name' => 'Balay Apitong', 'email' => 'apitong@dorm.com', 'capacity' => '64'],
     ['dorm_id' => 2, 'name' => 'Balay Gumamela', 'email' => 'gumamela@dorm.com', 'capacity' => '116'],
     ['dorm_id' => 3, 'name' => 'Balay Kanlaon', 'email' => 'kanlaon@dorm.com', 'capacity' => '16'],
