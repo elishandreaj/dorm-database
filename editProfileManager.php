@@ -13,7 +13,7 @@ $message = '';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST['name'];
     $email = $_POST['email'];
-    $duty = $_POST['duty'];
+    $duty = json_encode(isset($_POST['duty']) ? $_POST['duty'] : []);
     $dorm_id = $_POST['dorm_id'];
     $manager_id = $_SESSION['username'];
 
@@ -66,6 +66,7 @@ if($result->num_rows === 0) {
 }
 
 $managerData = $result->fetch_assoc();
+$managerData['duty'] = json_decode($managerData['duty'], true);
 
 $stmt = $conn->prepare("SELECT * FROM dorm");
 $stmt->execute();
@@ -90,20 +91,33 @@ $conn->close();
         <?php endif; ?>
         <form action="editProfileManager.php" method="post" enctype="multipart/form-data">
             <label for="name">Name:</label>
-            <input type="text" name="name" value="<?php echo $managerData['name']; ?>" required>
+            <input type="text" name="name" value="<?php echo htmlspecialchars($managerData['name']); ?>" required>
             <br>
             <label for="email">Email:</label>
-            <input type="email" name="email" value="<?php echo $managerData['email']; ?>" required>
+            <input type="email" name="email" value="<?php echo htmlspecialchars($managerData['email']); ?>" required>
             <br>
             <label for="duty">Duty:</label>
-            <input type="text" name="duty" value="<?php echo $managerData['duty']; ?>" required>
+            <div class="dropdown-checklist">
+                <button type="button" onclick="toggleChecklist()">Select Duties</button>
+                <div class="dropdown-checklist-content" id="duty-checklist">
+                    <?php
+                    $allDuties = ["Monday 1st Shift", "Monday 2nd Shift", "Monday 3rd Shift", "Tuesday 1st Shift", "Tuesday 2nd Shift", 
+                                    "Tuesday 3rd Shift", "Wednesday 1st Shift", "Wednesday 2nd Shift", "Wednesday 3rd Shift", 
+                                    "Thursday 1st Shift", "Thursday 2nd Shift", "Thursday 3rd Shift", "Friday 1st Shift", 
+                                    "Friday 2nd Shift", "Friday 3rd Shift", "Saturday 1st Shift", "Saturday 2nd Shift", 
+                                    "Saturday 3rd Shift", "Sunday 1st Shift", "Sunday 2nd Shift", "Sunday 3rd Shift",]; 
+                    foreach ($allDuties as $duty) {
+                        $checked = in_array($duty, $managerData['duty']) ? 'checked' : '';
+                        echo "<label><input type='checkbox' name='duty[]' value='$duty' $checked>$duty</label>";
+                    }
+                    ?>
+                </div>
+            </div>
             <br>
             <label for="dorm_id">Dorm:</label>
             <select name="dorm_id" required>
                 <?php while ($dorm = $dorms->fetch_assoc()): ?>
-                    <option value="<?php echo $dorm['dorm_id']; ?>" <?php if ($dorm['dorm_id'] == $managerData['dorm_id']) echo 'selected'; ?>>
-                        <?php echo $dorm['name']; ?>
-                    </option>
+                    <option value="<?php echo $dorm['dorm_id']; ?>" <?php if ($dorm['dorm_id'] == $managerData['dorm_id']) echo "selected"; ?>><?php echo $dorm['name']; ?></option>
                 <?php endwhile; ?>
             </select>
             <br>
@@ -114,5 +128,17 @@ $conn->close();
         </form>
         <br><a href="managerDashboard.php"><button>Cancel</button></a>
     </div>
+
+    <script>
+        function toggleChecklist() {
+            var checklist = document.getElementById('duty-checklist');
+            if (checklist.style.display === 'none' || checklist.style.display === '') {
+                checklist.style.display = 'block';
+            } else {
+                checklist.style.display = 'none';
+            }
+        }
+    </script>
+
 </body>
 </html>

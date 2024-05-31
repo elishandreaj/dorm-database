@@ -19,6 +19,7 @@ if($result->num_rows === 0) {
 }
 
 $managerData = $result->fetch_assoc();
+$managerData['duty'] = json_decode($managerData['duty'], true);
 
 $stmt->close();
 $conn->close();
@@ -31,6 +32,12 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>Dorm Manager Dashboard</title>
+    <style>
+        .staff-info li {
+            color: #BB7B47; 
+            text-align: center; 
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -46,7 +53,15 @@ $conn->close();
             <h1>Welcome, <?php echo $managerData['name']; ?></h1>
             <p>Staff ID: <?php echo $managerData['manager_id']; ?></p>
             <p>Email: <?php echo $managerData['email']; ?></p>
-            <p>Duty: <?php echo $managerData['duty']; ?></p>
+            <p>Duty: <?php if (!empty($managerData['duty'])): ?>
+                <ul>
+                    <?php foreach ($managerData['duty'] as $duty): ?>
+                        <li><?php echo $duty; ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php else: ?>
+                No duties assigned.
+            <?php endif; ?></p>
             <p>Dorm: <?php echo $managerData['dorm_name']; ?></p>
         </div>
         

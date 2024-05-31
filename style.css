@@ -96,3 +96,8 @@ p {
     width: 100%;
     text-align: left;
 }
+
+.duty-list li {
+    color: #BB7B47; 
+    text-align: center; 
+}

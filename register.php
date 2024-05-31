@@ -38,19 +38,9 @@ if ($role === 'employee' && $_POST['employee_type'] === 'dorm_manager') {
     $stmt->close();
 }
 
-if ($role === 'student') {
-    $requiredFields = ['course', 'year_level', 'room_number', 'fees'];
-    foreach ($requiredFields as $field) {
-        if (empty($_POST[$field])) {
-            echo "<script>alert('All fields are required for student.');</script>";
-            echo "<script>window.setTimeout(function(){ window.location = 'registration.html'; }, 0);</script>";
-            exit;
-        }
-    }
+$duties = isset($_POST['duty']) ? json_encode($_POST['duty']) : '';
 
-    $stmt = $conn->prepare("INSERT INTO student (student_id, name, email, course, year_level, room_number, fees, dorm_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("ssssiisi", $username, $name, $email, $_POST['course'], $_POST['year_level'], $_POST['room_number'], $_POST['fees'], $dorm_id);
-} else if ($role === 'employee') {
+if ($role === 'employee') {
     $requiredFields = ['employee_type', 'duty'];
     foreach ($requiredFields as $field) {
         if (empty($_POST[$field])) {
@@ -60,14 +50,24 @@ if ($role === 'student') {
         }
     }
 
-
     if ($_POST['employee_type'] === 'staff') {
         $stmt = $conn->prepare("INSERT INTO staff (staff_id, name, email, duty, dorm_id) VALUES (?, ?, ?, ?, ?)");
-        $stmt->bind_param("ssssi", $username, $name, $email, $duty, $dorm_id);
+        $stmt->bind_param("ssssi", $username, $name, $email, $duties, $dorm_id);
     } else if ($_POST['employee_type'] === 'dorm_manager') {
         $stmt = $conn->prepare("INSERT INTO manager (manager_id, name, email, duty, dorm_id) VALUES (?, ?, ?, ?, ?)");
-        $stmt->bind_param("ssssi", $username, $name, $email, $duty, $dorm_id);
+        $stmt->bind_param("ssssi", $username, $name, $email, $duties, $dorm_id);
     }
+} else if ($role === 'student') {
+    $requiredFields = ['course', 'year_level', 'room_number', 'fees'];
+    foreach ($requiredFields as $field) {
+        if (empty($_POST[$field])) {
+            echo "<script>alert('All fields are required for student.');</script>";
+            echo "<script>window.setTimeout(function(){ window.location = 'registration.html'; }, 0);</script>";
+            exit;
+        }
+    }
+    $stmt = $conn->prepare("INSERT INTO student (student_id, name, email, course, year_level, room_number, fees, dorm_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("ssssiisi", $username, $name, $email, $_POST['course'], $_POST['year_level'], $_POST['room_number'], $_POST['fees'], $dorm_id);
 }
 
 if ($stmt->execute()) {
