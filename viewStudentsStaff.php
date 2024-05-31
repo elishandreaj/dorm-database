@@ -75,6 +75,7 @@ $conn->close();
             width: 100px;
             height: 100px;
         }
+        
     </style>
 </head>
 <body>
@@ -130,6 +131,29 @@ $conn->close();
             <?php endif; ?>
         </table>
         <br><br>
+                    <td><?php echo $student['student_id']; ?></td>
+                    <td><?php echo $student['name']; ?></td>
+                    <td><?php echo $student['email']; ?></td>
+                    <td><?php echo $student['course']; ?></td>
+                    <td><?php echo $student['year_level']; ?></td>
+                    <td><?php echo $student['room_number']; ?></td>
+                    <td><?php echo $student['fees']; ?></td>
+                    <td>
+                        <?php if (!empty($student['picture'])): ?>
+                            <img src="<?php echo $student['picture']; ?>" alt="Student Picture">
+                        <?php else: ?>
+                            <div style="width:100px;height:100px;background-color:grey;"></div>
+                        <?php endif; ?>
+                    </td>
+                    <td>
+                        <form action="deleteStudentStaff.php" method="post">
+                            <input type="hidden" name="student_id" value="<?php echo $student['student_id']; ?>"><br><br>
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            <?php endwhile; ?>
+        </table><br><br>
         <a href="staffDashboard.php"><button>Back</button></a>
     </div>
 </body>
