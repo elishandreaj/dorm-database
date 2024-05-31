@@ -1,6 +1,14 @@
 <?php
 include 'database.php';
 
+$username = $_POST['username'] ?? null;
+$name = $_POST['name'] ?? null;
+$email = $_POST['email'] ?? null;
+$role = $_POST['role'] ?? null;
+$password = $_POST['password'] ?? null;
+$employee_type = $_POST['employee_type'] ?? null;
+$dorm_id = $_POST['dorm'] ?? null;
+
 if (empty($_POST['username']) || empty($_POST['password'])) {
     echo "<script>alert('Please provide both username and password.');</script>";
     echo "<script>window.setTimeout(function(){ window.location = 'registration.html'; }, 0);</script>";

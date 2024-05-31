@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="fav.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Registration Form</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -12,17 +13,17 @@
         <h1>Registration Form</h1>
         <form action="register.php" method="post">
             <label for="username">Username:</label>
-            <input type="text" id="username" name="username" maxlength="9" required autocomplete="off"><br>
+            <input type="text" id="username" name="username" maxlength="9" required><br>
             
             <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required autocomplete="off"><br>
+            <input type="text" id="name" name="name" required><br>
 
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required autocomplete="off"><br>
-
+          
             <label for="role">Role:</label>
             <select id="role" name="role" onchange="showRole()" required>
-                <option value="" selected>Select Role</option>
+                <option value="">Select Role</option>
                 <option value="student">Student</option>
                 <option value="employee">Employee</option>
             </select>
@@ -30,7 +31,7 @@
             <div id="employee-options" style="display: none;">
                 <label for="employee-type">Employee Type:</label>
                 <select id="employee-type" name="employee_type">
-                    <option value="" selected>Select Employee Type</option>
+                    <option value="">Select Employee Type</option>
                     <option value="staff">Staff</option>
                     <option value="dorm_manager">Dorm Manager</option>
                 </select>
@@ -65,9 +66,9 @@
             </div>
             
             <div id="student-options" style="display: none;">
-                <label for="course">Course:</label>
-                <select name="course" id="course" required autocomplete="off">   
-                    <option value="dafault" disabled>Select Course</option>
+                <label for="email">Course:</label>
+                <select name="course" id="course" required>   
+                    <option value="">Select Course</option>
                     <option value="Accountancy">BS in Accountancy</option>                 
                     <option value="AppMath">BS in Applied Mathematics</option>
                     <option value="Bio">BS (Biology)</option>
@@ -88,17 +89,17 @@
                     <option value="PH">BS in Public Health</option>
                     <option value="Socio">BA (Sociology)</option>
                     <option value="Stats">BS in Statistics</option>
-                </select><br>
+                  </select><br>
                 
-                <label for="year_level">Year Level:</label>
-                <select id="year_level" name="year_level" required autocomplete="off">
-                    <option value="default" disabled>Select Year Level</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="N">N</option>
-                </select><br>
+                  <label for="year_level">Year Level:</label>
+                  <select id="year_level" name="year_level" required>
+                    <option value="">Select Year Level</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="N">N</option>
+                  </select><br>
                 
                 <label for="room_number">Room Number:</label>
                 <input type="number" id="room_number" name="room_number"><br>
@@ -109,7 +110,7 @@
             
             <label for="dorm">Dorm:</label>
             <select id="dorm" name="dorm" required>
-                <option value="" selected>Select Dorm</option>
+                <option value="">Select Dorm</option>
                 <option value="1">Balay Apitong</option>
                 <option value="2">Balay Gumamela</option>
                 <option value="3">Balay Kanlaon</option>
@@ -127,6 +128,7 @@
         <p>Already have an account? <a href="user.html">Log in here</a></p>
     </div>
 
+    <script src="script.js"></script>
     <script>
         function showRole() {
             const role = document.getElementById('role').value;
