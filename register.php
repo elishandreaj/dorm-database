@@ -46,7 +46,26 @@ if ($role === 'employee' && $_POST['employee_type'] === 'dorm_manager') {
     $stmt->close();
 }
 
-if ($role === 'student') {
+$duties = isset($_POST['duty']) ? json_encode($_POST['duty']) : '';
+
+if ($role === 'employee') {
+    $requiredFields = ['employee_type', 'duty'];
+    foreach ($requiredFields as $field) {
+        if (empty($_POST[$field])) {
+            echo "<script>alert('All fields are required for employee.');</script>";
+            echo "<script>window.setTimeout(function(){ window.location = 'registration.html'; }, 0);</script>";
+            exit;
+        }
+    }
+
+    if ($_POST['employee_type'] === 'staff') {
+        $stmt = $conn->prepare("INSERT INTO staff (staff_id, name, email, duty, dorm_id) VALUES (?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssssi", $username, $name, $email, $duties, $dorm_id);
+    } else if ($_POST['employee_type'] === 'dorm_manager') {
+        $stmt = $conn->prepare("INSERT INTO manager (manager_id, name, email, duty, dorm_id) VALUES (?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssssi", $username, $name, $email, $duties, $dorm_id);
+    }
+} else if ($role === 'student') {
     $requiredFields = ['course', 'year_level', 'room_number', 'fees'];
     foreach ($requiredFields as $field) {
         if (empty($_POST[$field])) {
@@ -57,47 +76,7 @@ if ($role === 'student') {
     }
     $stmt = $conn->prepare("INSERT INTO student (student_id, name, email, course, year_level, room_number, fees, dorm_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
     $stmt->bind_param("ssssiisi", $username, $name, $email, $_POST['course'], $_POST['year_level'], $_POST['room_number'], $_POST['fees'], $dorm_id);
-
-} else if ($role === 'employee') {
-    $requiredFields = ['employee_type', 'duty'];
-    foreach ($requiredFields as $field) {
-        if (empty($_POST[$field])) {
-            echo "<script>alert('All fields are required for employee.');</script>";
-            echo "<script>window.setTimeout(function(){ window.location = 'registration.html'; }, 0);</script>";
-            exit;
-        }
-    }
-
-
-    if ($_POST['employee_type'] === 'staff') {
-        $stmt = $conn->prepare("INSERT INTO staff (staff_id, name, email, duty, dorm_id) VALUES (?, ?, ?, ?, ?)");
-        $stmt->bind_param("ssssi", $username, $name, $email, $duty, $dorm_id);
-    } else if ($_POST['employee_type'] === 'dorm_manager') {
-        $stmt = $conn->prepare("INSERT INTO manager (manager_id, name, email, duty, dorm_id) VALUES (?, ?, ?, ?, ?)");
-        $stmt->bind_param("ssssi", $username, $name, $email, $duty, $dorm_id);
-    }
 }
-
-if ($stmt->execute()) { 
-    echo "User registered successfully.<br>";
-    // Hash the password
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-
-     $stmt = $conn->prepare("INSERT INTO login (username, password, role, employee_type, id) VALUES (?, ?, ?, ?, ?)");
-     $stmt->bind_param("sssss", $username, $password, $role, $employee_type, $username);
- 
-     if ($stmt->execute()) {
-         echo "Login details saved successfully.<br>";
-     } else {
-         echo "Error: " . $stmt->error . "<br>";
-     }
- } else {
-     echo "Error: " . $stmt->error . "<br>";
- }
- 
- $stmt->close();
- $conn->close();
- header("Location: login.php");
 
 if ($stmt->execute()) {
     echo "<script>alert('User registered successfully.');</script>";

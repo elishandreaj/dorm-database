@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if(!isset($_SESSION['username']) || empty($_SESSION['username'])) {
+if (!isset($_SESSION['username']) || empty($_SESSION['username'])) {
     header("Location: login.php");
     exit();
 }
@@ -13,12 +13,13 @@ $stmt->bind_param("s", $_SESSION['username']);
 $stmt->execute();
 $result = $stmt->get_result();
 
-if($result->num_rows === 0) {
+if ($result->num_rows === 0) {
     echo "<script>alert('Staff not found');</script>";
     exit();
 }
 
 $staffData = $result->fetch_assoc();
+$staffData['duty'] = json_decode($staffData['duty'], true);
 
 $stmt->close();
 $conn->close();
@@ -31,6 +32,12 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>Staff Dashboard</title>
+    <style>
+        .staff-info li {
+            color: #BB7B47; 
+            text-align: center; 
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -46,18 +53,22 @@ $conn->close();
             <h1>Welcome, <?php echo $staffData['name']; ?></h1>
             <p>Staff ID: <?php echo $staffData['staff_id']; ?></p>
             <p>Email: <?php echo $staffData['email']; ?></p>
-            <p>Duty: <?php foreach($_POST['duty'] as $value) {
-                echo $value;
-                }
-            ?></p>
+            <p>Duty: <?php if (!empty($staffData['duty'])): ?>
+                <ul>
+                    <?php foreach ($staffData['duty'] as $duty): ?>
+                        <li><?php echo $duty; ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php else: ?>
+                No duties assigned.
+            <?php endif; ?></p>
             <p>Dorm: <?php echo $staffData['dorm_name']; ?></p>
         </div>
-        
+
         <div class="action-buttons">
             <a href="editProfileStaff.php"><button>Edit Profile</button></a><br><br>
             <a href="viewStudentsStaff.php"><button>View Students</button></a><br><br>
             <a href="user.html"><button>Logout</button></a>
-
         </div>
     </div>
 </body>
