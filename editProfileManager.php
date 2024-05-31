@@ -112,7 +112,7 @@ $conn->close();
             <br>
             <button type="submit">Update Profile</button>
         </form>
-        <a href="managerDashboard.php"><button>Cancel</button></a>
+        <br><a href="managerDashboard.php"><button>Cancel</button></a>
     </div>
 </body>
 </html>
