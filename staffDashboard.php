@@ -46,13 +46,15 @@ $conn->close();
             <h1>Welcome, <?php echo $staffData['name']; ?></h1>
             <p>Staff ID: <?php echo $staffData['staff_id']; ?></p>
             <p>Email: <?php echo $staffData['email']; ?></p>
-            <p>Duty: <?php echo $staffData['duty']; ?></p>
+            <p>Duty: <?php foreach($_POST['duty'] as $value) {
+                echo $value;
+                }
+            ?></p>
             <p>Dorm: <?php echo $staffData['dorm_name']; ?></p>
         </div>
         
         <div class="action-buttons">
             <a href="editProfileStaff.php"><button>Edit Profile</button></a><br><br>
-
             <a href="viewStudentsStaff.php"><button>View Students</button></a><br><br>
             <a href="user.html"><button>Logout</button></a>
 
