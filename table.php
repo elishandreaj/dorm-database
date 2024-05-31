@@ -86,7 +86,7 @@ $dorms = [
     ['dorm_id' => 5, 'name' => 'Balay Madyaas', 'email' => 'madyaas@dorm.com'],
     ['dorm_id' => 6, 'name' => 'Balay Miagos', 'email' => 'miagos@dorm.com'],
     ['dorm_id' => 7, 'name' => 'International Dorm', 'email' => 'international@dorm.com']
-];
+];`
 
 foreach ($dorms as $dorm) {
     $stmt = $conn->prepare("INSERT IGNORE INTO dorm (dorm_id, name, email) VALUES (?, ?, ?)");

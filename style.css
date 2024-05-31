@@ -77,9 +77,29 @@ p {
   
 .password-toggle-icon i:hover {
     color: #000;
-
   }
 
+.profile-picture{
+    margin: auto;
+    width: 50%;
+}
 
+.user-info{
+    margin-bottom: 10%;
+}
 
+.user-info h1{
+    text-align: center;
+}
 
+.user-info p{
+    text-align: justify;
+    margin: auto;
+    width: 70%;
+    line-height: 30px;
+}
+
+.container{
+    box-shadow: 15px 15px 15px rgba(0, 0, 0, 0.74);
+    margin-bottom: 5%;
+}
